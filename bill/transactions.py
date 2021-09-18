@@ -110,6 +110,43 @@ class Bill:
         self.id = data['response_data']['id']
         self.amount = data['response_data']['amount']
 
+    def setBillApprover(self, approverId):
+
+        urlSetApprovers = "/api/v2/SetApprovers.json"
+
+        dict = {"objectId" : self.id,
+                "entity" : "Bill",
+                "approvers" : [approverId]}
+
+        headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+        query = {"devKey": util.DEVKEY, "sessionId": util.SESSION_ID, "data": jsonpickle.encode(dict)}
+        response = requests.post(util.URL + urlSetApprovers, data=query, headers=headers)
+        data = response.json()
+        print(data)
+
+    def setBillApproverPolicy(self, amountThreshold = 4000, minNumApprovers = 1):
+        urlSetApprovers = "/api/v2/Crud/Create/ApprovalPolicy.json"
+
+        dict = {
+                    "obj" :
+                        {
+                            "objectId": self.id,
+                            "entity": "ApprovalPolicy",
+                            "type": "0",
+                            "amountThreshold" : amountThreshold,
+                            "minNumApprovers" : minNumApprovers,
+                            "isActive" : "1"
+                        }
+                }
+
+        headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+        query = {"devKey": util.DEVKEY, "sessionId": util.SESSION_ID, "data": jsonpickle.encode(dict)}
+        response = requests.post(util.URL + urlSetApprovers, data=query, headers=headers)
+        data = response.json()
+        print(data)
+
+
+
 class RecurringBillItem:
     def __init__(self,
                  amount,
@@ -163,4 +200,5 @@ class RecurringBill:
         response = requests.post(util.URL + self.urlCreate, data=query, headers=headers)
         data = response.json()
         print(data)
+
 
