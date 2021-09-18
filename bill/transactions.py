@@ -48,7 +48,7 @@ class PayBills:
                  processDate="",
                  billPays=[],
                  billCredits=[]):
-        self.billCredits = billCredits
+        # self.billCredits = billCredits
         self.billPays = billPays
         self.processDate = processDate
         self.bankAccountId = bankAccountId
@@ -62,6 +62,7 @@ class PayBills:
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
         query = {"devKey": util.DEVKEY, "sessionId": util.SESSION_ID, "data": self.toJSON()}
         response = requests.post(util.URL + self.urlCreate, data=query, headers=headers)
+        print(query)
         data = response.json()
         print(data)
 

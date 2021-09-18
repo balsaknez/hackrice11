@@ -34,5 +34,5 @@ class VendorBankAccount():
         query = {"devKey": util.DEVKEY, "sessionId": util.SESSION_ID, "data": self.toJSON()}
         response = requests.post(util.URL + self.urlCreate, data=query, headers=headers)
         data = response.json()
-        id = data['response_data']['id']
+        self.id = data['response_data']['id']
         # print(data)
