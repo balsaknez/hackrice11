@@ -10,12 +10,28 @@ import  Wave  from "@foobar404/wave";
 })
 export class DashboardComponent implements OnInit {
   wave = new Wave();
+  mainCanvas = document.getElementById("output");
+
   constructor() { 
-    this.wave.fromElement("audio","output",{type:"wave"});
   }
 
   ngOnInit(): void {
     (document.getElementById('video') as HTMLFormElement).controls = false;
+  }
+
+  
+  canvasClick() {
+    this.mainCanvas = document.getElementById("output");
+    //(this.mainCanvas as HTMLFormElement).classList.add("show");
+    (this.mainCanvas as HTMLFormElement).height = window.innerHeight;
+    (this.mainCanvas as HTMLFormElement).width = window.innerWidth
+
+    this.wave.fromElement("audio", "output", {
+        type: "dualbars blocks",
+        colors: ["blue", "red", "green"]
+    })
+    (document.getElementById("audio") as HTMLFormElement).play();
+
   }
 
 }
