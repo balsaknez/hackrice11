@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit {
 
     this.wave.fromElement("audio", "output", {
         type: "dualbars blocks",
-        colors: ["blue", "red", "green"]
+        colors: ["#DEE1DD", "#C4CDC1", "#99AEAD"]
     })
     (document.getElementById("audio") as HTMLFormElement).play();
 
