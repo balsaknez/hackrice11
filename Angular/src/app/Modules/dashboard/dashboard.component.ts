@@ -24,14 +24,18 @@ export class DashboardComponent implements OnInit {
     this.mainCanvas = document.getElementById("output");
     //(this.mainCanvas as HTMLFormElement).classList.add("show");
     (this.mainCanvas as HTMLFormElement).height = window.innerHeight;
-    (this.mainCanvas as HTMLFormElement).width = window.innerWidth
-
+    (this.mainCanvas as HTMLFormElement).width = window.innerWidth;
+    (document.getElementById("audio") as HTMLFormElement).play();
     this.wave.fromElement("audio", "output", {
         type: "dualbars blocks",
-        colors: ["#DEE1DD", "#C4CDC1", "#99AEAD"]
+        colors: ["#DEE1DD", "#C4CDC1", "black"]
     })
-    (document.getElementById("audio") as HTMLFormElement).play();
 
+  }
+
+  //menu button
+  myFunction() {
+    (document.getElementById('menu-btn') as HTMLFormElement).classList.toggle("change");
   }
 
 }
