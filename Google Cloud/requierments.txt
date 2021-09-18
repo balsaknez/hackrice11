@@ -1,0 +1,14 @@
+Package       Version
+------------- --------
+cmake         3.21.2
+colorama      0.4.4
+dlib          19.22.1
+imageio       2.9.0
+imutils       0.5.4
+numpy         1.21.2
+opencv-python 4.5.3.56
+Pillow        8.3.2
+pip           21.2.4
+scipy         1.7.1
+setuptools    47.1.0
+tqdm          4.62.2
