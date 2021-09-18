@@ -10,6 +10,7 @@ export class DashboardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    (document.getElementById('video') as HTMLFormElement).controls = false;
   }
 
 }
