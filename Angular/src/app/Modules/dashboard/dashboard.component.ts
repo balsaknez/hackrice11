@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 // @ts-ignore
 import  Wave  from "@foobar404/wave";
-
+import { transpileModule } from 'typescript';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,12 +12,20 @@ import  Wave  from "@foobar404/wave";
 export class DashboardComponent implements OnInit {
   wave = new Wave();
   mainCanvas = document.getElementById("output");
+  menu_open: boolean = false;
+  page: number = 0;
+  sidebars_color = "#DEE1DD";
+  font_color = "#28363D";
 
-  constructor() { 
+  pages: string[] = ["Finance","Job monitoring","Energetics","Education","Generator"]
+  
+
+  constructor(private router: Router) { 
+    this.page = 0;
   }
 
   ngOnInit(): void {
-    (document.getElementById('video') as HTMLFormElement).controls = false;
+    //(document.getElementById('video') as HTMLFormElement).controls = false;
   }
 
   
@@ -28,7 +37,7 @@ export class DashboardComponent implements OnInit {
     (document.getElementById("audio") as HTMLFormElement).play();
     this.wave.fromElement("audio", "output", {
         type: "dualbars blocks",
-        colors: ["#DEE1DD", "#C4CDC1", "black"]
+        colors: ["black", "#DEE1DD", "#658B6F"]
     })
 
   }
@@ -36,6 +45,12 @@ export class DashboardComponent implements OnInit {
   //menu button
   myFunction() {
     (document.getElementById('menu-btn') as HTMLFormElement).classList.toggle("change");
+    this.menu_open = !this.menu_open;
+  }
+
+  set_page_to(i: number){
+    this.page = i;
+    if (i == 4) this.router.navigate(['bot_creator']);
   }
 
 }

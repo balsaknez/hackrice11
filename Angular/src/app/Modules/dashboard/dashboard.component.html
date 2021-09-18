@@ -1,46 +1,67 @@
-<div class="globally justify-content-center" style="background-color: #28363D;">
-    <div class="row" style="height: 100vh; width: 100%; ">
-        <div class="col-1" style="background-color: #2F575D ">
-            <div class="row justify-content-center">
-                <div class="container" (click)="myFunction()" id="menu-btn">
-                    <div class="bar1"></div>
-                    <div class="bar2"></div>
-                    <div class="bar3"></div>
+<div class="globally">
+
+    <div style="background-color: #6D9197;">
+        <div class="row" style="height: 100vh;">
+            <div class="col-1" [style.background-color]="sidebars_color">
+                <div class="row justify-content-center">
+                    <div class="container" (click)="myFunction()" id="menu-btn">
+                        <div class="bar1"></div>
+                        <div class="bar2"></div>
+                        <div class="bar3"></div>
+                    </div>
+                </div>
+                <br>
+                <div *ngIf="menu_open">
+                    <div *ngFor="let pg of pages; let i = index" class="row justify-content-center" style="text-decoration: none; font-size: 20px; font-weight: bold; color: #2F575D; margin: 0% 5px 0% 25px; margin-top: auto;margin-bottom: auto; display: flex; justify-content: center; align-items: center;">
+                        <div style="text-decoration: none; margin-top: auto;margin-bottom: auto; display: flex; justify-content: center; align-items: center" (click)=set_page_to(i)>
+                            <a style="margin-top: auto;margin-bottom: auto; display: flex; justify-content: center; align-items: center">
+                                {{pg}}
+                            </a>
+                        </div>
+                        <br>
+                        <br>
+                    </div>
                 </div>
             </div>
-            <br>
-            <div class="row justify-content-center" style="text-decoration: none; font-size: 20px; font-weight: bold; color: #99AEAD; margin: 0% 5px 0% 25px;">
-                <div style="text-decoration: none;">Finance</div>
+            <div class="col-10">
+
+                <div *ngIf="page==0">
+                    <div class="row ">
+                        <video id="video" controls autoplay style="position: absolute; height: 70vh; width: 100%; width: 100%; pointer-events: none; ">
+                        <source src="../../../assets/videos/test.mov " type="video/mp4 ">
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                    <div class="row justify-content-center">
+                        <audio id="audio" src="../../../assets/audio/test.mp3 "></audio>
+                        <canvas (click)="canvasClick() " id="output" style="width: 70%; height: 30vh; top: 70%; position: absolute; background-color: #6D9197;"></canvas>
+                    </div>
+                </div>
+
+                <div *ngIf="page==4">
+                    <div class="row">
+                        <h2 style="padding: 15px 0px 0px 25px;" [style.color]="font_color"> Welcome to the Bot Creator! </h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-6" style=" position: absolute; height: 70vh; width: 100%; width: 100%;">
+
+                        </div>
+                        <div class=" col-6" style="position: absolute; height: 70vh; width: 100%; width: 100%;">
+
+                        </div>
+                    </div>
+                </div>
+
+
+
             </div>
-            <br>
-            <div class="row justify-content-center" style="text-decoration: none; font-size: 20px; font-weight: bold; color: #99AEAD; margin: 0% 5px 0% 25px;">
-                <a>Job monitoring</a>
-            </div>
-            <br>
-            <div class="row justify-content-center" style="text-decoration: none; font-size: 20px; font-weight: bold; color: #99AEAD; margin: 0% 5px 0% 25px;">
-                <a href="">Energetics</a>
-            </div>
-            <br>
-            <div class="row justify-content-center" style="text-decoration: none; font-size: 20px; font-weight: bold; color: #99AEAD; margin: 0% 5px 0% 25px;">
-                <a href="">Education</a>
-            </div>
-        </div>
-        <div class="col-10">
-            <div class="row ">
-                <video id="video" controls autoplay style="position: absolute; height: 70vh; width: 100%; width: 100%; pointer-events: none; ">
-                    <source src="../../../assets/videos/test.mov " type="video/mp4 ">
-                    Your browser does not support the video tag.
-                  </video>
-            </div>
-            <div class="row justify-content-center">
-                <audio id="audio" src="../../../assets/audio/test.mp3 "></audio>
-                <canvas (click)="canvasClick() " id="output" style="width: 70%; height: 30vh; top: 70%; position: absolute; background-color: #28363D;"></canvas>
-            </div>
-        </div>
-        <div class="col-1 " style="background-color: #2F575D; padding: 0px 0px 0px 0px;">
-            <div class="container">
-                <i class='fas fa-user-alt' style='font-size:40px; margin: 0% 0% 0% -10%;'></i>
+            <div class="col-1 " style="background-color: #DEE1DD; padding: 10px 40px 0px 0px; ">
+                <div class="container ">
+                    <i class='fas fa-user-alt' style='font-size:40px; color: #28363D;'></i>
+                </div>
             </div>
         </div>
     </div>
+
+
 </div>

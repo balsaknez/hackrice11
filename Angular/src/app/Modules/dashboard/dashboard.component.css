@@ -1,3 +1,7 @@
+.a {
+    text-decoration: none;
+}
+
 .globally::-webkit-scrollbar {
     display: none;
 }
@@ -77,8 +81,4 @@
     --p2: top;
     --d1: left;
     --d2: right;
-}
-
-.a {
-    text-decoration: none;
 }
