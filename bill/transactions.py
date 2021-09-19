@@ -5,7 +5,10 @@ import jsonpickle
 import twilio
 
 
+
 class BillLineItem:
+    
+
     def __init__(self,
                  amount,
                  entity="BillLineItem",
@@ -68,9 +71,11 @@ class PayBills:
 
 
 class Bill:
+    billMap = {}
     urlCreate = "/api/v2/Crud/Create/Bill.json"
 
     def __init__(self,
+                 ourUserId,
                  vendorId,
                  invoiceNumber,
                  invoiceDate,
@@ -83,6 +88,7 @@ class Bill:
                  description="",
                  billLineItems=[]
                  ):
+        self.ourUserId = ourUserId
         self.billLineItems = billLineItems
         self.description = description
         self.glPostingDate = glPostingDate
@@ -109,6 +115,7 @@ class Bill:
         print(data)
         self.id = data['response_data']['id']
         self.amount = data['response_data']['amount']
+        Bill.billMap[self.id] = self.ourUserId
 
     def setBillApprover(self, approverId):
 
@@ -144,6 +151,30 @@ class Bill:
         response = requests.post(util.URL + urlSetApprovers, data=query, headers=headers)
         data = response.json()
         print(data)
+
+    def getBillsForUser(userId, vendId):
+        urlList = "/api/v2/List/Bill.json"
+        dict = {"start" : 0,
+                "max" : 999}
+
+        headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+        query = {"devKey": util.DEVKEY, "sessionId": util.SESSION_ID, "data": jsonpickle.encode(dict)}
+        response = requests.post(util.URL + urlList, data=query, headers=headers)
+        data = response.json()['response_data']
+
+        billsForUser = []
+
+        for i in data:
+            try:
+                if userId == Bill.billMap[i["id"]] and vendId == i["vendorId"]:
+                    sum = 0
+                    for item in i["billLineItems"]:
+                        sum += float(item["amount"])
+                    billsForUser.append({"billId" : i["id"] , "amount" : sum})
+            except Exception:
+                continue
+
+        return billsForUser
 
 
 

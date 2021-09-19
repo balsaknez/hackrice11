@@ -1,6 +1,7 @@
 import requests
 import json
 import utility as util
+import jsonpickle
 
 
 class Vendor:
@@ -73,6 +74,23 @@ class Vendor:
         self.id = data['response_data']['id']
         self.isActive = "1"
         self.nameOnCheck = self.name
+    
+    def get_vendor_by_vendor_name(name):
+
+        urlList = "/api/v2/List/Vendor.json"
+        dict = {"start" : 0,
+                "max" : 999}
+
+        headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+        query = {"devKey": util.DEVKEY, "sessionId": util.SESSION_ID, "data": jsonpickle.encode(dict)}
+        response = requests.post(util.URL + urlList, data=query, headers=headers)
+        data = response.json()['response_data']
+
+        for i in data:
+            if i["name"].lower() == name.lower():
+                return i
+
+        return None
 
 
 me = Vendor(name='asd')
