@@ -25,6 +25,7 @@ def init_control(filePath):
         text=text.lower()
         words = text.split(' ')
         print(words)
+        print("ok radi")
         if (words[0]=="yes" or words[0] == "sure" or words[0] == "yeah"):
             try:
                 # bot pita korisnika da mu kaze ime vendora
