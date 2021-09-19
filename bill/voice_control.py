@@ -104,5 +104,5 @@ def pay_with_voice(filePath,userId):
         #         return 
     return ret
 
-if (init_control("./RecordedFile.wav")):
-    print(pay_with_voice("./RecordedFile.wav","myId"))
+if (init_control("RecordedFile.wav")):
+    print(pay_with_voice("RecordedFile.wav","myId"))
