@@ -2,12 +2,20 @@ import speech_recognition as sr
 from word2number import w2n
 import vendor as ven
 import transactions
+from pathlib import Path
 
 
 
 def init_control(filePath):    
     # Initialize recognizer class (for recognizing the speech)
-   
+    HERE = Path(__file__).parent.resolve()
+    PATH = HERE / 'RecordedFile.wav'
+    print(HERE)
+    print(PATH)
+    if PATH.exists():
+        print('exists!')
+    else:
+        print("not exists")
     r = sr.Recognizer()
     
     ret="Try again!"
