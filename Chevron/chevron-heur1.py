@@ -125,13 +125,43 @@ def heur1(id_worker, id_fac):
     if sol_key == None:
         return None
 
+    print(max_dist)
+
+    workOrders[sol_key].isActive = False
+    return sol_key, workOrders[sol_key].fac_id
+
+def heur2(id_worker, id_fac):
+    sol_key = None
+    max_dist = 100000000000
+
+    time_weight = 1
+    prior_weight = 1.5
+    speed = 5
+
+
+    for key, val in workOrders.items():
+        if not val.isActive or val.eqType not in workers[id_worker].properties:
+            continue
+        travel = distance(facilities[id_fac].lat, facilities[id_fac].lon, facilities[val.fac_id].lat,
+                               facilities[val.fac_id].lon) / speed
+        total_time = travel + val.time
+
+        if (total_time * time_weight + val.priority * prior_weight < max_dist):
+            max_dist = total_time * time_weight + val.priority * prior_weight
+            sol_key = key
+
+    if sol_key == None:
+        return None
+
+    print(max_dist)
+
     workOrders[sol_key].isActive = False
     return sol_key, workOrders[sol_key].fac_id
 
 
 # returnign None if there is no workorder
 def get_next_workorder(id_worker, id_fac):
-    return heur1(id_worker, id_fac)
+    return heur2(id_worker, id_fac)
 
 
 init()
