@@ -16,6 +16,11 @@
     /* Firefox */
 }
 
+.normal_text {
+    padding: 15px 0px 0px 25px;
+    font-weight: bold;
+}
+
 .container {
     display: inline-block;
     cursor: pointer;

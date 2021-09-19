@@ -7,7 +7,12 @@ from tqdm import tqdm
 import time
 import imageio
 import os, sys
+import moviepy.editor as mp
 
+
+def audio_strip(path_from, path_to):
+    my_clip = mp.VideoFileClip(path_from)
+    my_clip.audio.write_audiofile(path_to)
 
 
 def pil_to_cv2(pilimage):
@@ -55,7 +60,7 @@ def crop_image(lands,path_to_image):
     im1 = im.crop((left-60, top-74, right+60, bottom+60)) 
     #im1.show() 
     return im1
-
+    
 
 def PIL_to_CV2():
     pil_image = PIL.Image.open('Image.jpg').convert('RGB') 
@@ -93,9 +98,10 @@ def frame_extractor(path_to_video,html):
     cap= cv2.VideoCapture(path_to_video)
     i=0
     while(cap.isOpened()):
+        print(i)
         ret, frame = cap.read()
         if ret == False:
-            break
+            continue
         im_name = "C:/Users/milja/Desktop/frames/"+str(i).zfill(6)+".jpg"
         cv2.imwrite(im_name,frame)
         
@@ -208,9 +214,9 @@ def main():
     #dirs= dirs.split(' ')
     #folders = np.array(dirs)
     #create_comparative_video(r"C:\Users\milja\OneDrive\Desktop\compare.avi",folders,False)
-    create_video(r"C:\Users\milja\Desktop\cutframes4","C:/Users/milja/Desktop/b.avi",10)
-    #check_fps(r"C:\Users\milja\Desktop\a.mp4")
-    #frame_extractor(r"C:\Users\milja\Desktop\b.mp4",False)
+    #create_video(r"C:\Users\milja\Desktop\cutframes4","C:/Users/milja/Desktop/new.avi",30)
+    #check_fps(r"C:\Users\milja\Desktop\welcome.mp4")
+    frame_extractor(r"C:\Users\milja\Desktop\small.mp4",False)
     #convertFile(r"C:\Users\milja\Downloads\Dragica's reaction to Miljan's existence.mp4",TargetFormat.GIF)
     #print(3)
 
