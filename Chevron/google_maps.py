@@ -8,9 +8,7 @@ geocode_result = gmaps.geocode('1600 Amphitheatre Parkway, Mountain View, CA')
 
 
 def between_lat_long_driving(lat1, lon1, lat2, lon2):
-    reverse_geocode_result1 = gmaps.reverse_geocode((lat1, lon1))
-    reverse_geocode_result2 = gmaps.reverse_geocode((lat2, lon2))
-    matrix = gmaps.distance_matrix_test(reverse_geocode_result1, reverse_geocode_result2)
-    print(matrix)
+    matrix = gmaps.distance_matrix((lat1, lon1), (lat2, lon2), mode="driving", units="metric")
+    return (int(matrix["rows"][0]["elements"][0]["distance"]["value"]))
 
 between_lat_long_driving(41.43206, -81.38992, 42.43206, -82.38992)

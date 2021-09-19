@@ -111,6 +111,9 @@ def add_workorder(fac_id, eqType, eqId, priority, time):
     workOrders[w.id] = w
     return w.id
 
+def between_lat_long_driving(lat1, lon1, lat2, lon2):
+    matrix = gmaps.distance_matrix((lat1, lon1), (lat2, lon2), mode="driving", units="metric")
+    return (int(matrix["rows"][0]["elements"][0]["distance"]["value"]))
 
 def delete_workorder(id):
     try:
