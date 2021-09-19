@@ -21,7 +21,7 @@ def init_control(filePath):
     ret="Try again!"
     
     #with sr.AudioFile(filePath) as source:
-    with sr.AudioFile(filePath) as source:
+    with sr.AudioFile(str(PATH)) as source:
         #audio_text = r.record(source)
         #r.adjust_for_ambient_noise(source, duration=1)
         audio_text = r.record(source)
