@@ -1,14 +1,22 @@
-import speech_recognition
+import speech_recognition as sr
 from word2number import w2n
 import vendor
 import transactions
+import pyttsx3
 
-def init_control(filePath):    
+
+
+def init_control():    
     # Initialize recognizer class (for recognizing the speech)
+   
+    engine = pyttsx3.init()
     r = sr.Recognizer()
     ret="Try again!"
-    with sr.AudioFile(filePath) as source:
-        audio_text = r.record(source)
+    
+    #with sr.AudioFile(filePath) as source:
+    with sr.Microfone() as source:
+        #audio_text = r.record(source)
+        audio_text = r.listen(source)
         # using google speech recognition
         #text = r.recognize_google(audio_text)
         text = r.recognize_google(audio_text, key=None, language='en-US', show_all=True)
@@ -48,12 +56,14 @@ def init_control(filePath):
         #         return 
     return ret
 
-def pay_with_voice(filePath, userId):
+def pay_with_voice(userId):
     # Initialize recognizer class (for recognizing the speech)
     r = sr.Recognizer()
     ret="Try again!"
-    with sr.AudioFile(filePath) as source:
-        audio_text = r.record(source)
+    #with sr.AudioFile(filePath) as source:
+    with sr.Microfone() as source:
+        #audio_text = r.record(source)
+        audio_text = r.listen(source)
         # using google speech recognition
         #text = r.recognize_google(audio_text)
         text = r.recognize_google(audio_text, key=None, language='en-US', show_all=True)
@@ -97,3 +107,5 @@ def pay_with_voice(filePath, userId):
         #     except:
         #         return 
     return ret
+
+print(init_control())
