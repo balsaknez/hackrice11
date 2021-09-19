@@ -1,5 +1,8 @@
 from math import cos, asin, sqrt, pi
+import googlemaps
+from datetime import datetime
 
+gmaps = googlemaps.Client(key='AIzaSyC3KO4bSvKS81aNgRAR4ysQXrHAfJp-Bw4')
 
 class Facility:
     def __init__(self, id, lat, lon, maxOcc):
@@ -106,6 +109,12 @@ def distance(lat1, lon1, lat2, lon2):
     p = pi / 180
     a = 0.5 - cos((lat2 - lat1) * p) / 2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2
     return 12742 * asin(sqrt(a))
+
+def between_lat_long_driving(lat1, lon1, lat2, lon2):
+    reverse_geocode_result1 = gmaps.reverse_geocode((lat1, lon1))
+    reverse_geocode_result2 = gmaps.reverse_geocode((lat2, lon2))
+    matrix = gmaps.distance_matrix_test(reverse_geocode_result1, reverse_geocode_result2)
+    print(matrix)
 
 
 def heur1(id_worker, id_fac):

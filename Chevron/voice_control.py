@@ -18,7 +18,7 @@ chevron_heur1.init()
 def control_with_voice(filePath):    
     # Initialize recognizer class (for recognizing the speech)
     r = sr.Recognizer()
-    ret="Wrong"
+    ret="Try again!"
     with sr.AudioFile(filePath) as source:
         audio_text = r.record(source)
         # using google speech recognition
