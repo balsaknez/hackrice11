@@ -25,9 +25,12 @@ class Worker:
 
 
 class Equipment:
-    def __init__(self, name, prob):
+    def __init__(self, name, prob, minH, maxH, ammountList):
         self.name = name
         self.prob = prob
+        self.minH = minH
+        self.maxH = maxH
+        self.ammountList = ammountList
 
     def __repr__(self) -> str:
         return str(self.__dict__)
@@ -82,7 +85,18 @@ def init():
         line = line.strip().lower()
         name = line.split("\t")[0]
         prob = float(line.split("\t")[1])
-        equipment[name] = Equipment(name, prob)
+        minH = int(line.split("\t")[2])
+        maxH = int(line.split("\t")[3])
+
+        ammList = []
+
+        try:
+            for i in range(4, len(line.split("\t"))):
+                ammList.append(line.split("\t")[i])
+        except Exception:
+            print("")
+
+        equipment[name] = Equipment(name, prob,minH, maxH, ammList)
 
 
 def my_print():
@@ -166,19 +180,82 @@ def heur2(id_worker, id_fac):
     workOrders[sol_key].isActive = False
     return sol_key, workOrders[sol_key].fac_id
 
+def heur3(id_worker, id_fac):
+    sol_key = None
+    max_dist = 100000000000
+
+    time_weight = 1
+    prior_weight = 1.5
+    speed = 5
+
+    range = 3
+    coef_2 = 0.3 #it might break
+
+    for key, val in workOrders.items():
+        if not val.isActive or val.eqType not in workers[id_worker].properties:
+            continue
+
+        expected_new_fixing_time = 0
+
+        for key_fac, val_fac in facilities.items():
+            if (distance(facilities[val.fac_id].lat,
+                         facilities[val.fac_id].lon,
+                         val_fac.lat,
+                         val_fac.lon) > range):
+                continue
+
+            for key_eq, val_eq in equipment.items():
+                if key_eq not in workers[id_worker].properties:
+                    continue
+                cnt = int(val_eq.ammountList[key_fac - 1])
+                #expected_new_fixing_time += val_eq.prob*(val_eq.minH + val_eq.maxH)/2*cnt
+                expected_new_fixing_time += val_eq.prob * cnt * (val_eq.minH + val_eq.maxH) / 2
+
+        travel = distance(facilities[id_fac].lat, facilities[id_fac].lon, facilities[val.fac_id].lat,
+                               facilities[val.fac_id].lon) / speed
+        total_time = travel + val.time
+
+        if (total_time * time_weight + val.priority * prior_weight + expected_new_fixing_time * coef_2 < max_dist):
+            max_dist = total_time * time_weight + val.priority * prior_weight + expected_new_fixing_time * coef_2
+            sol_key = key
+
+    if sol_key == None:
+        return None
+
+    print(max_dist)
+
+    workOrders[sol_key].isActive = False
+    return sol_key, workOrders[sol_key].fac_id
+
 
 # returnign None if there is no workorder
 def get_next_workorder(id_worker, id_fac):
-    return heur2(id_worker, id_fac)
+    return heur3(id_worker, id_fac)
 
 
 init()
 
-add_workorder(1, "Pump", "P032", 5, 3)
-add_workorder(3, "Conveyer", "Con391", 1, 9)
-add_workorder(4, "Seperator", "Sep028", 2, 3)
-add_workorder(5, "Sensor", "Sen826", 4, 1)
-add_workorder(1, "Security", "Sec032", 1, 2)
-add_workorder(5, "Electricity", "El087", 3, 2)
-add_workorder(1, "Networking", "Net012", 3, 4)
-#my_print()
+add_workorder(1, "pump", "P032", 5, 3)
+add_workorder(3, "conveyer", "Con391", 1, 9)
+add_workorder(4, "seperator", "Sep028", 2, 3)
+add_workorder(5, "sensor", "Sen826", 4, 1)
+add_workorder(1, "security", "Sec032", 1, 2)
+add_workorder(5, "electricity", "El087", 3, 2)
+add_workorder(1, "networking", "Net012", 3, 4)
+my_print()
+
+print(get_next_workorder(workers['bob'].name, 2))
+print(get_next_workorder(workers['bob'].name, 2))
+print(get_next_workorder(workers['bob'].name, 2))
+print(get_next_workorder(workers['bob'].name, 2))
+print(get_next_workorder(workers['bob'].name, 2))
+print(get_next_workorder(workers['bob'].name, 2))
+print(get_next_workorder(workers['bob'].name, 2))
+print(get_next_workorder(workers['bob'].name, 2))
+print(get_next_workorder(workers['bob'].name, 2))
+print(get_next_workorder(workers['bob'].name, 2))
+print(get_next_workorder(workers['bob'].name, 2))
+print(get_next_workorder(workers['bob'].name, 2))
+print(get_next_workorder(workers['bob'].name, 2))
+print(get_next_workorder(workers['bob'].name, 2))
+print(get_next_workorder(workers['bob'].name, 2))
