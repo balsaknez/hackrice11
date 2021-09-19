@@ -56,7 +56,7 @@ equipment = {}
 def init():
     f = open("facilities.txt", "r")
     for line in f:
-        print(line)
+        line = line.strip().lower()
         id = int(line.split("\t")[0])
         lat = float(line.split("\t")[1])
         lon = float(line.split("\t")[2])
@@ -68,8 +68,7 @@ def init():
 
     f = open("workers.txt", "r")
     for line in f:
-        print(line)
-        line = line.strip()
+        line = line.strip().lower()
         name = line.split("\t")[0]
         properties = line.split("\t")[1].split(" ")
         worker = Worker(name, properties)
@@ -77,7 +76,7 @@ def init():
 
     f = open("equipment.txt", "r")
     for line in f:
-        print(line)
+        line = line.strip().lower()
         name = line.split("\t")[0]
         prob = float(line.split("\t")[1])
         equipment[name] = Equipment(name, prob)
@@ -125,7 +124,7 @@ def heur1(id_worker, id_fac):
     if sol_key == None:
         return None
 
-    print(max_dist)
+    #print(max_dist)
 
     workOrders[sol_key].isActive = False
     return sol_key, workOrders[sol_key].fac_id
@@ -153,7 +152,7 @@ def heur2(id_worker, id_fac):
     if sol_key == None:
         return None
 
-    print(max_dist)
+    #print(max_dist)
 
     workOrders[sol_key].isActive = False
     return sol_key, workOrders[sol_key].fac_id
@@ -173,20 +172,4 @@ add_workorder(5, "Sensor", "Sen826", 4, 1)
 add_workorder(1, "Security", "Sec032", 1, 2)
 add_workorder(5, "Electricity", "El087", 3, 2)
 add_workorder(1, "Networking", "Net012", 3, 4)
-my_print()
-
-print(get_next_workorder(workers['Bob'].name, 2))
-print(get_next_workorder(workers['Bob'].name, 2))
-print(get_next_workorder(workers['Bob'].name, 2))
-print(get_next_workorder(workers['Bob'].name, 2))
-print(get_next_workorder(workers['Bob'].name, 2))
-print(get_next_workorder(workers['Bob'].name, 2))
-print(get_next_workorder(workers['Bob'].name, 2))
-print(get_next_workorder(workers['Bob'].name, 2))
-print(get_next_workorder(workers['Bob'].name, 2))
-print(get_next_workorder(workers['Bob'].name, 2))
-print(get_next_workorder(workers['Bob'].name, 2))
-print(get_next_workorder(workers['Bob'].name, 2))
-print(get_next_workorder(workers['Bob'].name, 2))
-print(get_next_workorder(workers['Bob'].name, 2))
-print(get_next_workorder(workers['Bob'].name, 2))
+#my_print()
