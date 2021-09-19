@@ -39,10 +39,10 @@ def control_with_voice(filePath):
                 index_of_duration = words.index("duration")
                 #print(index_of_facility, index_of_type,index_of_priority,index_of_duration)
                 facility = w2n.word_to_num(get_word(words[(index_of_facility+1):index_of_type]))
-                type = words[(index_of_type+1):index_of_priority]
+                type1 = words[(index_of_type+1):index_of_priority]
                 priority = w2n.word_to_num(get_word(words[(index_of_priority+1):index_of_duration]))
                 duration = w2n.word_to_num(get_word(words[(index_of_duration+1):]))
-                chevron_heur1.add_workorder(facility, type, "random", priority, duration)
+                chevron_heur1.add_workorder(facility, type1, "random", priority, duration)
                 ret="Success"
             except:
                 return
