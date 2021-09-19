@@ -2,21 +2,19 @@ import speech_recognition as sr
 from word2number import w2n
 import vendor
 import transactions
-import pyttsx3
 
 
 
-def init_control():    
+def init_control(filePath):    
     # Initialize recognizer class (for recognizing the speech)
    
-    engine = pyttsx3.init()
     r = sr.Recognizer()
     ret="Try again!"
     
     #with sr.AudioFile(filePath) as source:
-    with sr.Microfone() as source:
+    with sr.AudioFile(filePath) as source:
         #audio_text = r.record(source)
-        audio_text = r.listen(source)
+        audio_text = r.record(source)
         # using google speech recognition
         #text = r.recognize_google(audio_text)
         text = r.recognize_google(audio_text, key=None, language='en-US', show_all=True)
@@ -32,8 +30,6 @@ def init_control():
                 # bot pita korisnika da mu kaze ime vendora
                 return True
             except:
-                return
-            if (index_of_priority==-1 or index_of_facility==-1 or index_of_type==-1 or index_of_duration==-1):
                 return
         else:
             return False
@@ -56,14 +52,14 @@ def init_control():
         #         return 
     return ret
 
-def pay_with_voice(userId):
+def pay_with_voice(filePath,userId):
     # Initialize recognizer class (for recognizing the speech)
     r = sr.Recognizer()
     ret="Try again!"
     #with sr.AudioFile(filePath) as source:
-    with sr.Microfone() as source:
+    with sr.AudioFile(filePath) as source:
         #audio_text = r.record(source)
-        audio_text = r.listen(source)
+        audio_text = r.record(source)
         # using google speech recognition
         #text = r.recognize_google(audio_text)
         text = r.recognize_google(audio_text, key=None, language='en-US', show_all=True)
@@ -76,8 +72,7 @@ def pay_with_voice(userId):
         print(words)
         
         vendor_name = words[0]
-
-        vend = vendor.get_vendor_by_vendor_name(vendor_name)
+        vend = vendor.Vendor.get_vendor_by_vendor_name(vendor_name)
         if vend is None:
             #ne postoji vendor kome mozete da platite
             return False
@@ -108,4 +103,5 @@ def pay_with_voice(userId):
         #         return 
     return ret
 
-print(init_control())
+if (init_control("yes.wav")):
+    print(pay_with_voice("music.wav","myId"))
