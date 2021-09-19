@@ -15,9 +15,9 @@ def init_control(filePath):
     #with sr.AudioFile(filePath) as source:
     with sr.AudioFile(filePath) as source:
         #audio_text = r.record(source)
-        
+        #r.adjust_for_ambient_noise(source, duration=1)
         audio_text = r.record(source)
-        r.adjust_for_ambient_noise(source, duration=5)
+        
         # using google speech recognition
         #text = r.recognize_google(audio_text)
         text = r.recognize_google(audio_text, key=None, language='en-US', show_all=True)
@@ -26,6 +26,7 @@ def init_control(filePath):
         if (isinstance(text,dict)):
             text = text["alternative"][0]["transcript"]
         text=text.lower()
+        print(text)
         words = text.split(' ')
         print(words)
         print("ok radi")
