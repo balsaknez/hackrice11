@@ -1,6 +1,6 @@
 import speech_recognition as sr
 from word2number import w2n
-import vendor
+import vendor as ven
 import transactions
 
 
@@ -72,7 +72,7 @@ def pay_with_voice(filePath,userId):
         print(words)
         
         vendor_name = words[0]
-        vend = vendor.Vendor.get_vendor_by_vendor_name(vendor_name)
+        vend = ven.Vendor.get_vendor_by_vendor_name(vendor_name)
         if vend is None:
             #ne postoji vendor kome mozete da platite
             return False
